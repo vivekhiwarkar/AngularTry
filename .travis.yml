@@ -1,22 +1,23 @@
 language: node_js
+
 node_js:
-  - "8.11.3"
+   - node
 
 branches:
-  only:
-    - master
+   only:
+      - master # will only build for master branch commits
 
 before_script:
-  - npm install -g firebase-tools
-  - npm install -g @angular/cli
+   - npm install -g --silent firebase-tools # installs firebase to run firebase deploy
+   - npm install -g --silent @angular/cli
 
 script:
-  - ng build --prod
+   - ng build --prod
 
 after_success:
-  - firebase deploy --token $FIREBASE_TOKEN
+  - firebase deploy --token $FIREBASE_TOKEN --non-interactive # firebase deploy after angular-cli build
 
 notifications:
   email:
     on_failure: change
-    on_success: change
+    on_success: change  
